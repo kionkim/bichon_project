@@ -1,10 +1,22 @@
 language: python
 python:
   - "3.6" # current default Python on Travi CI
-  - "3.7"
+  #- "3.7"
 # command to install dependencies
 install:
   - pip install -r requirements.txt
 # command to run tests
 script:
   - "./.travis/run.sh"
+
+notifications:
+  email: false
+  slack:
+    rooms:
+      - secure: qV4CK609ihoMeYwoTzpaKvn9gt/DHSJSsIr7riWzr44FfMxVpcy0y19e8JBWe3UiQ6U1cO6pKV05uqldWctVLk0L/nQYBtUrsZ8lGkvRjyWl0AF5W5xS5A7s7eM2gIIVZV0pAWC3eF0uPkDDCTCgsRtN9XvWdqPMXbTwF4UfnUvt8bd4do4zWCdTgaiONL86DPpEoe+Rrq0l2YOk3Mamvg8BKXnV7MvNrCONH6EBZGSLpT+kvm55tWQivzgfIUm9hj8FgTgO5WMVAr+e50A57Md7e03YP1PR8Ck5+KeUC0sCXQ1QcwkYhITDSC4Q5rIon9zVUulZ2JkD6dZF6XZA6ZJ0a0B+jPG/2mMO3HcIiSPIAXjAHQae9btUpJVYdsSP2AktNfkZCad2lCVxnPNYu2ZpE5q59IGwly2sXi9MoHJFiH7F4yQxrl4SSVJyPonZQipqSRMT1Pdg7+512c0h1WmRFSZfu8IEoTilviT6V6wZ/FnEu17erQpXHDZrFD4qAxLdLjD+b8MaAO9VWrWcQnNhrcHrxnLHP5pFNS1NFI77AAH05C57aNyN0ZdnXeCWkJBIt4Hbox7Z4Xxd+pIR0gweH+jnDC8OieqgkXkaYA8JRFkwaKUEmPrun3KxLdgcYGNSOEZeQwOwCpOoZ6ahUOI8Ba0XY7r0cS+s+0s0cw8=
+    on_success: always # change: send a notification when the build status changes.
+    on_failure: always # always: always send a notification
+    template:
+      - "Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>) for commit (<%{compare_url}|%{commit}>) on branch `%{branch}`."
+      - "Execution time: *%{duration}*"
+      - "Message: %{message}"
